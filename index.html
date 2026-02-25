@@ -3,109 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro-SaaS Ideas Dashboard v2</title>
+    <title>SaaS Visionary Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;600;800&family=Inter:wght@900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Assistant', sans-serif; background-color: #f1f5f9; }
-        .idea-card { transition: all 0.3s ease; }
-        .idea-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1); }
-        .requirement-img { cursor: pointer; border-radius: 8px; border: 2px solid transparent; transition: 0.2s; }
-        .requirement-img:hover { border-color: #3b82f6; }
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-color: #38bdf8;
+        }
+        body { 
+            font-family: 'Assistant', sans-serif; 
+            background-color: var(--bg-color);
+            color: #f1f5f9;
+            background-image: radial-gradient(circle at top right, #1e293b, transparent), radial-gradient(circle at bottom left, #1e1b4b, transparent);
+            background-attachment: fixed;
+        }
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .idea-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .idea-card:hover {
+            transform: scale(1.02) translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        .header-title { font-family: 'Inter', sans-serif; letter-spacing: -0.05em; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { animation: fadeIn 0.6s ease forwards; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="min-h-screen">
 
-    <div class="max-w-7xl mx-auto">
-        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
-            <div>
-                <h1 class="text-4xl font-extrabold text-slate-900 italic">Micro-SaaS Strategy</h1>
-                <p class="text-slate-600 mt-2 text-lg">ניהול רעיונות מבוסס קריטריונים עסקיים</p>
+    <nav class="sticky top-0 z-40 glass border-b border-white/10 px-6 py-4 mb-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20">AI</div>
+                <h1 class="header-title text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">IDEA LAB</h1>
             </div>
-            
-            <div class="flex gap-4 bg-white p-3 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-xs text-slate-400 mb-2 block w-full text-center font-bold">מדריכי דרישות (לחץ להגדלה)</div>
-                <div class="flex gap-2">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" 
-                         onclick="openModal(this.src)" class="requirement-img w-16 h-16 object-cover" alt="Requirement 1">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" 
-                         onclick="openModal(this.src)" class="requirement-img w-16 h-16 object-cover" alt="Requirement 2">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" 
-                         onclick="openModal(this.src)" class="requirement-img w-16 h-16 object-cover" alt="Requirement 3">
-                </div>
+            <div class="flex gap-4">
+                <button onclick="toggleGuidelines()" class="text-sm font-semibold bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full transition border border-white/10">
+                    מדריכי אסטרטגיה
+                </button>
             </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <header class="mb-16 text-right animate-in">
+            <h2 class="text-5xl md:text-7xl font-black mb-6 leading-none">הדור הבא של ה-<br><span class="text-sky-400">Micro-SaaS</span></h2>
+            <p class="text-slate-400 text-xl max-w-2xl leading-relaxed">ניתוח רעיונות מבוסס מודל רווחיות וחסינות עסקית. כל כרטיס מייצג פתרון מדויק לבעיה כואבת.</p>
         </header>
 
-        <div id="loading-state" class="flex justify-center my-20">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div id="guidelines" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 animate-in">
+            <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" class="rounded-2xl border border-white/10 shadow-2xl cursor-pointer hover:scale-[1.02] transition" onclick="openModal(this.src)">
+            <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" class="rounded-2xl border border-white/10 shadow-2xl cursor-pointer hover:scale-[1.02] transition" onclick="openModal(this.src)">
+            <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" class="rounded-2xl border border-white/10 shadow-2xl cursor-pointer hover:scale-[1.02] transition" onclick="openModal(this.src)">
         </div>
 
-        <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            </div>
-    </div>
+        <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="h-64 glass animate-pulse rounded-3xl"></div>
+            <div class="h-64 glass animate-pulse rounded-3xl"></div>
+            <div class="h-64 glass animate-pulse rounded-3xl"></div>
+        </div>
+    </main>
 
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4" onclick="closeModal()">
-        <img id="modalImg" src="" class="max-w-full max-h-full rounded-lg shadow-2xl">
+    <div id="imageModal" class="fixed inset-0 bg-slate-950/90 hidden z-50 flex items-center justify-center p-4 backdrop-blur-md" onclick="closeModal()">
+        <img id="modalImg" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl border border-white/20">
     </div>
 
     <script>
-        /**
-         * GitHub Senior AI Development Partner
-         * Logic: Fetch JSON + UI Interactivity
-         */
-
         const RAW_JSON_URL = 'https://raw.githubusercontent.com/Almog787/Idea/main/ideas.json';
 
-        async function init() {
+        async function loadData() {
             try {
                 const response = await fetch(RAW_JSON_URL);
                 const data = await response.json();
-                renderCards(data.micro_saas_ideas);
-                document.getElementById('loading-state').style.display = 'none';
-            } catch (error) {
-                console.error('Fetch Error:', error);
-                document.getElementById('loading-state').innerHTML = '<p class="text-red-500 font-bold">שגיאה בטעינת הנתונים מה-GitHub</p>';
+                render(data.micro_saas_ideas);
+            } catch (e) {
+                document.getElementById('ideas-container').innerHTML = `<p class="text-red-400">Failed to sync with GitHub repository.</p>`;
             }
         }
 
-        function renderCards(ideas) {
+        function render(ideas) {
             const container = document.getElementById('ideas-container');
-            container.innerHTML = ideas.map(idea => {
-                // Extracting rank number for visual indicator
-                const rankMatch = idea.core_value.match(/\((\d+)\)/);
-                const rank = rankMatch ? rankMatch[1] : '?';
-
-                return `
-                <div class="idea-card bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+            container.innerHTML = ideas.map((idea, index) => `
+                <div class="idea-card glass rounded-[2rem] p-8 flex flex-col justify-between animate-in" style="animation-delay: ${index * 0.1}s">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-2xl font-black text-slate-100 italic">#${idea.id}</span>
-                            <div class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                                קריטריון ${rank}
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="px-4 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-bold tracking-widest uppercase">
+                                Phase 01
                             </div>
+                            <span class="text-slate-500 font-mono text-sm">#${idea.id.toString().padStart(3, '0')}</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight">${idea.product_name}</h3>
+                        <h3 class="text-2xl font-bold text-white mb-4 leading-tight">${idea.product_name}</h3>
                         
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">קהל יעד</span>
-                                <p class="text-slate-700 font-medium">${idea.target_audience}</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
+                                <p class="text-slate-300 text-sm"><strong class="text-slate-500 ml-1">קהל:</strong> ${idea.target_audience}</p>
                             </div>
-                            <div>
-                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">הבעיה הנפתרת</span>
-                                <p class="text-slate-600 text-sm leading-relaxed">${idea.problem_solved}</p>
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
+                                <p class="text-slate-300 text-sm"><strong class="text-slate-500 ml-1">כאב:</strong> ${idea.problem_solved}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between">
-                        <span class="text-xs font-bold text-blue-500">${idea.core_value}</span>
-                        <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <div class="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
+                        <span class="text-sm font-semibold text-slate-400">
+                             ${idea.core_value}
+                        </span>
+                        <button class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-sky-500 transition-colors group">
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7-7 7M5 12h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </button>
                     </div>
                 </div>
-                `;
-            }).join('');
+            `).join('');
+        }
+
+        function toggleGuidelines() {
+            const g = document.getElementById('guidelines');
+            g.classList.toggle('hidden');
+            g.scrollIntoView({ behavior: 'smooth' });
         }
 
         function openModal(src) {
@@ -117,7 +152,7 @@
             document.getElementById('imageModal').classList.add('hidden');
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
 </html>
