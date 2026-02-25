@@ -3,104 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro-SaaS Ideas Dashboard</title>
+    <title>Micro-SaaS Ideas Dashboard v2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Assistant', sans-serif;
-            background-color: #f8fafc;
-        }
-        .idea-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .idea-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+        body { font-family: 'Assistant', sans-serif; background-color: #f1f5f9; }
+        .idea-card { transition: all 0.3s ease; }
+        .idea-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1); }
+        .requirement-img { cursor: pointer; border-radius: 8px; border: 2px solid transparent; transition: 0.2s; }
+        .requirement-img:hover { border-color: #3b82f6; }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body class="p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto">
-        <header class="mb-12 text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">מאגר רעיונות Micro-SaaS</h1>
-            <p class="text-lg text-gray-600">פתרונות ממוקדים לבעיות אמיתיות בשטח</p>
-            <div id="loading-state" class="mt-8 text-blue-600 font-semibold">טוען נתונים מהמאגר...</div>
+    <div class="max-w-7xl mx-auto">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+            <div>
+                <h1 class="text-4xl font-extrabold text-slate-900 italic">Micro-SaaS Strategy</h1>
+                <p class="text-slate-600 mt-2 text-lg">ניהול רעיונות מבוסס קריטריונים עסקיים</p>
+            </div>
+            
+            <div class="flex gap-4 bg-white p-3 rounded-xl shadow-sm border border-slate-200">
+                <div class="text-xs text-slate-400 mb-2 block w-full text-center font-bold">מדריכי דרישות (לחץ להגדלה)</div>
+                <div class="flex gap-2">
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" 
+                         onclick="openModal(this.src)" class="requirement-img w-16 h-16 object-cover" alt="Requirement 1">
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" 
+                         onclick="openModal(this.src)" class="requirement-img w-16 h-16 object-cover" alt="Requirement 2">
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" 
+                         onclick="openModal(this.src)" class="requirement-img w-16 h-16 object-cover" alt="Requirement 3">
+                </div>
+            </div>
         </header>
 
-        <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
+        <div id="loading-state" class="flex justify-center my-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
 
-        <footer class="mt-16 text-center text-gray-500 text-sm">
-            <p>GitHub Senior AI Development Partner | Data source: ideas.json</p>
-        </footer>
+        <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            </div>
+    </div>
+
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4" onclick="closeModal()">
+        <img id="modalImg" src="" class="max-w-full max-h-full rounded-lg shadow-2xl">
     </div>
 
     <script>
         /**
-         * GitHub Senior AI Development Partner - Frontend Logic
-         * Purpose: Fetch and display Micro-SaaS ideas from a JSON file.
+         * GitHub Senior AI Development Partner
+         * Logic: Fetch JSON + UI Interactivity
          */
 
-        const JSON_URL = 'https://raw.githubusercontent.com/Almog787/Idea/main/ideas.json';
+        const RAW_JSON_URL = 'https://raw.githubusercontent.com/Almog787/Idea/main/ideas.json';
 
-        async function fetchIdeas() {
-            const container = document.getElementById('ideas-container');
-            const loader = document.getElementById('loading-state');
-
+        async function init() {
             try {
-                const response = await fetch(JSON_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
+                const response = await fetch(RAW_JSON_URL);
                 const data = await response.json();
-                renderIdeas(data.micro_saas_ideas);
-                loader.classList.add('hidden');
-
+                renderCards(data.micro_saas_ideas);
+                document.getElementById('loading-state').style.display = 'none';
             } catch (error) {
-                console.error('Error fetching data:', error);
-                loader.innerHTML = `<span class="text-red-500">שגיאה בטעינת הנתונים. וודא שהקובץ קיים בכתובת ה-Raw הנכונה.</span>`;
+                console.error('Fetch Error:', error);
+                document.getElementById('loading-state').innerHTML = '<p class="text-red-500 font-bold">שגיאה בטעינת הנתונים מה-GitHub</p>';
             }
         }
 
-        function renderIdeas(ideas) {
+        function renderCards(ideas) {
             const container = document.getElementById('ideas-container');
-            
-            // Fail-safe: Check if ideas exists and is an array
-            if (!ideas || !Array.isArray(ideas)) {
-                container.innerHTML = '<p class="text-center col-span-full">לא נמצאו נתונים להצגה.</p>';
-                return;
-            }
+            container.innerHTML = ideas.map(idea => {
+                // Extracting rank number for visual indicator
+                const rankMatch = idea.core_value.match(/\((\d+)\)/);
+                const rank = rankMatch ? rankMatch[1] : '?';
 
-            container.innerHTML = ideas.map(idea => `
-                <div class="idea-card bg-white border border-gray-200 rounded-xl p-6 flex flex-col h-full shadow-sm">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">ID: ${idea.id}</span>
-                        <span class="text-xs text-gray-400 font-mono">${idea.core_value.split('(')[1]?.replace(')', '') || 'N/A'}</span>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">${idea.product_name}</h3>
-                    
-                    <div class="mb-4 flex-grow">
-                        <p class="text-sm text-gray-500 mb-1 font-semibold">קהל יעד:</p>
-                        <p class="text-gray-700 mb-3">${idea.target_audience}</p>
+                return `
+                <div class="idea-card bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-2xl font-black text-slate-100 italic">#${idea.id}</span>
+                            <div class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                קריטריון ${rank}
+                            </div>
+                        </div>
                         
-                        <p class="text-sm text-gray-500 mb-1 font-semibold">הבעיה:</p>
-                        <p class="text-gray-700 mb-3">${idea.problem_solved}</p>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight">${idea.product_name}</h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">קהל יעד</span>
+                                <p class="text-slate-700 font-medium">${idea.target_audience}</p>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">הבעיה הנפתרת</span>
+                                <p class="text-slate-600 text-sm leading-relaxed">${idea.problem_solved}</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="pt-4 border-t border-gray-100">
-                        <p class="text-sm font-medium text-blue-600">ערך ליבה: ${idea.core_value}</p>
+                    <div class="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between">
+                        <span class="text-xs font-bold text-blue-500">${idea.core_value}</span>
+                        <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // Initialize execution
-        document.addEventListener('DOMContentLoaded', fetchIdeas);
+        function openModal(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
