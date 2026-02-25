@@ -1,110 +1,106 @@
-import json
-import os
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro-SaaS Ideas Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: #f8fafc;
+        }
+        .idea-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12">
 
-def generate_html():
-    # File paths
-    json_path = 'Ideas.json'
-    output_path = 'index.html'
-    
-    # Fail-safe: Check if JSON exists
-    if not os.path.exists(json_path):
-        print(f"Error: {json_path} not found. Creating a placeholder.")
-        data = {"ideas": []}
-    else:
-        try:
-            with open(json_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        except Exception as e:
-            print(f"Error parsing JSON: {e}")
-            data = {"ideas": []}
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">מאגר רעיונות Micro-SaaS</h1>
+            <p class="text-lg text-gray-600">פתרונות ממוקדים לבעיות אמיתיות בשטח</p>
+            <div id="loading-state" class="mt-8 text-blue-600 font-semibold">טוען נתונים מהמאגר...</div>
+        </header>
 
-    # Images listed in your request
-    images = [
-        "IMG-20260224-WA0041.jpg",
-        "IMG-20260224-WA0042.jpg",
-        "IMG-20260224-WA0043.jpg"
-    ]
-
-    # HTML Template with Tailwind CSS
-    html_content = f"""
-    <!DOCTYPE html>
-    <html lang="he" dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>צוות פיתוח - מאגר רעיונות</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
-        <style>
-            body {{ font-family: 'Assistant', sans-serif; }}
-        </style>
-    </head>
-    <body class="bg-gray-50 text-gray-900">
-        <nav class="bg-blue-600 p-4 text-white shadow-lg">
-            <div class="container mx-auto">
-                <h1 class="text-2xl font-bold text-center">מרכז הרעיונות והדרישות של הצוות</h1>
+        <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             </div>
-        </nav>
 
-        <main class="container mx-auto py-8 px-4">
-            <section class="mb-12">
-                <h2 class="text-xl font-bold mb-6 border-b-2 border-blue-500 pb-2">רעיונות רשומים (מתוך JSON)</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    """
-
-    # Add ideas from JSON
-    if not data.get("ideas"):
-        html_content += '<p class="text-gray-500 italic">אין רעיונות להצגה כרגע.</p>'
-    else:
-        for idea in data["ideas"]:
-            html_content += f"""
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border-t-4 border-blue-400">
-                        <h3 class="font-bold text-lg mb-2">{idea.get('title', 'ללא כותרת')}</h3>
-                        <p class="text-gray-600 mb-4">{idea.get('description', 'אין תיאור זמין')}</p>
-                        <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">{idea.get('category', 'כללי')}</span>
-                    </div>
-            """
-
-    html_content += """
-                </div>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-bold mb-6 border-b-2 border-green-500 pb-2">דרישות ופרוטוקולים (תמונות מהמאגר)</h2>
-                <div class="space-y-8">
-    """
-
-    # Add images
-    for img in images:
-        if os.path.exists(img):
-            html_content += f"""
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <p class="mb-2 text-sm font-semibold text-gray-700">{img}</p>
-                        <img src="{img}" alt="Requirement Image" class="w-full rounded shadow-sm border">
-                    </div>
-            """
-        else:
-            html_content += f'<p class="text-red-400 italic">תמונה חסרה במאגר: {img}</p>'
-
-    html_content += """
-                </div>
-            </section>
-        </main>
-
-        <footer class="mt-12 py-6 bg-gray-200 text-center text-gray-600 text-sm">
-            <p>עודכן אוטומטית על ידי GitHub Senior AI Partner</p>
+        <footer class="mt-16 text-center text-gray-500 text-sm">
+            <p>GitHub Senior AI Development Partner | Data source: ideas.json</p>
         </footer>
-    </body>
-    </html>
-    """
+    </div>
 
-    # Write output
-    try:
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        print(f"Successfully generated {output_path}")
-    except Exception as e:
-        print(f"Error writing HTML: {e}")
+    <script>
+        /**
+         * GitHub Senior AI Development Partner - Frontend Logic
+         * Purpose: Fetch and display Micro-SaaS ideas from a JSON file.
+         */
 
-if __name__ == "__main__":
-    generate_html()
+        const JSON_URL = 'https://raw.githubusercontent.com/Almog787/Idea/main/ideas.json';
+
+        async function fetchIdeas() {
+            const container = document.getElementById('ideas-container');
+            const loader = document.getElementById('loading-state');
+
+            try {
+                const response = await fetch(JSON_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                renderIdeas(data.micro_saas_ideas);
+                loader.classList.add('hidden');
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                loader.innerHTML = `<span class="text-red-500">שגיאה בטעינת הנתונים. וודא שהקובץ קיים בכתובת ה-Raw הנכונה.</span>`;
+            }
+        }
+
+        function renderIdeas(ideas) {
+            const container = document.getElementById('ideas-container');
+            
+            // Fail-safe: Check if ideas exists and is an array
+            if (!ideas || !Array.isArray(ideas)) {
+                container.innerHTML = '<p class="text-center col-span-full">לא נמצאו נתונים להצגה.</p>';
+                return;
+            }
+
+            container.innerHTML = ideas.map(idea => `
+                <div class="idea-card bg-white border border-gray-200 rounded-xl p-6 flex flex-col h-full shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">ID: ${idea.id}</span>
+                        <span class="text-xs text-gray-400 font-mono">${idea.core_value.split('(')[1]?.replace(')', '') || 'N/A'}</span>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">${idea.product_name}</h3>
+                    
+                    <div class="mb-4 flex-grow">
+                        <p class="text-sm text-gray-500 mb-1 font-semibold">קהל יעד:</p>
+                        <p class="text-gray-700 mb-3">${idea.target_audience}</p>
+                        
+                        <p class="text-sm text-gray-500 mb-1 font-semibold">הבעיה:</p>
+                        <p class="text-gray-700 mb-3">${idea.problem_solved}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100">
+                        <p class="text-sm font-medium text-blue-600">ערך ליבה: ${idea.core_value}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize execution
+        document.addEventListener('DOMContentLoaded', fetchIdeas);
+    </script>
+</body>
+</html>
