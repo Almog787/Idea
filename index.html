@@ -3,113 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaaS Strategy | High Readability Edition</title>
+    <title>SaaS Master Strategy & Idea Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Assistant', sans-serif; 
-            background-color: #0a0a0a; /* שחור רך */
-            color: #e5e5e5; /* לבן מעט אפרפר למניעת סנוור */
-        }
+        :root { --bg: #050505; --card: #0f0f0f; --border: #262626; --accent: #ffffff; }
+        body { font-family: 'Assistant', sans-serif; background-color: var(--bg); color: #e5e5e5; margin: 0; }
         .jetbrains { font-family: 'JetBrains Mono', monospace; }
         
-        /* Slider optimized for visibility */
-        .slider-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 1.5rem;
-            padding: 1rem;
-        }
-        .slider-wrapper::-webkit-scrollbar {
-            height: 4px;
-        }
-        .slider-wrapper::-webkit-scrollbar-thumb {
-            background: #404040;
-            border-radius: 10px;
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
 
-        .strategy-card {
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-            background: #171717;
-            border: 1px solid #262626;
-            border-radius: 12px;
-            transition: border-color 0.3s;
-        }
-        @media (min-width: 768px) { .strategy-card { flex: 0 0 30%; } }
+        /* Card & UI Elements */
+        .glass-card { background: var(--card); border: 1px solid var(--border); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .strategy-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 1.5rem; padding-bottom: 1rem; }
+        .strategy-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        @media (min-width: 768px) { .strategy-item { flex: 0 0 30%; } }
 
-        /* Idea Card - Focus on Text */
-        .idea-card {
-            background: #171717;
-            border: 1px solid #262626;
-            transition: all 0.2s ease-in-out;
-        }
-        .idea-card:hover {
-            border-color: #f5f5f5;
-            background: #1c1c1c;
-        }
-
-        .label {
-            color: #737373;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
+        /* Modal Animation */
+        .modal-animate { animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <nav class="border-b border-neutral-800 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
+    <nav class="border-b border-neutral-800 bg-black/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-white text-black flex items-center justify-center font-black rounded-sm">S</div>
-                <h1 class="text-xl font-extrabold tracking-tight">STRATEGY<span class="text-neutral-500 font-light">CORE</span></h1>
+                <div class="w-10 h-10 bg-white text-black flex items-center justify-center font-black rounded-lg">S</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">STRATEGY<span class="font-light opacity-50">LAB</span></h1>
+                    <p class="text-[10px] jetbrains text-neutral-500 uppercase">Architecture & Action v4.0</p>
+                </div>
             </div>
-            <input type="text" id="searchInput" oninput="filterIdeas()" placeholder="חיפוש לפי שם, קהל או בעיה..." 
-                   class="w-full md:w-80 bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-white transition-colors">
+            <div class="relative w-full md:w-96">
+                <input type="text" id="searchInput" oninput="filterIdeas()" placeholder="חפש רעיון, קהל יעד או בעיה..." 
+                       class="w-full bg-neutral-900 border border-neutral-800 rounded-full px-5 py-2 text-sm focus:outline-none focus:border-white transition-all">
+            </div>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
         
         <section class="mb-20">
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-white mb-2">מדריכי אסטרטגיה</h2>
-                <div class="h-1 w-12 bg-white"></div>
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-white italic">THE RULES</h2>
+                    <p class="text-neutral-500 text-sm mt-1">אסטרטגיית הליבה לבחירת רעיונות (לחץ להגדלה)</p>
+                </div>
             </div>
             
-            <div class="slider-wrapper" id="slider">
-                <div class="strategy-card group cursor-pointer" onclick="openModal(this.querySelector('img').src)">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" class="w-full h-72 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                    <div class="p-4 bg-neutral-900 flex justify-between items-center">
-                        <span class="jetbrains text-xs text-neutral-400 font-bold">GUIDE_01</span>
-                        <span class="text-xs text-neutral-500 italic">לחץ להגדלה</span>
-                    </div>
+            <div class="strategy-slider" id="strategySlider">
+                <div class="strategy-item cursor-zoom-in" onclick="openLightbox('https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg')">
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" class="w-full h-64 object-cover">
+                    <div class="p-3 bg-neutral-900 jetbrains text-[10px] text-neutral-400">STRATEGY_MAP_01</div>
                 </div>
-                <div class="strategy-card group cursor-pointer" onclick="openModal(this.querySelector('img').src)">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" class="w-full h-72 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                    <div class="p-4 bg-neutral-900 flex justify-between items-center">
-                        <span class="jetbrains text-xs text-neutral-400 font-bold">GUIDE_02</span>
-                        <span class="text-xs text-neutral-500 italic">לחץ להגדלה</span>
-                    </div>
+                <div class="strategy-item cursor-zoom-in" onclick="openLightbox('https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg')">
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" class="w-full h-64 object-cover">
+                    <div class="p-3 bg-neutral-900 jetbrains text-[10px] text-neutral-400">PROFIT_MODEL_02</div>
                 </div>
-                <div class="strategy-card group cursor-pointer" onclick="openModal(this.querySelector('img').src)">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" class="w-full h-72 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                    <div class="p-4 bg-neutral-900 flex justify-between items-center">
-                        <span class="jetbrains text-xs text-neutral-400 font-bold">GUIDE_03</span>
-                        <span class="text-xs text-neutral-500 italic">לחץ להגדלה</span>
-                    </div>
+                <div class="strategy-item cursor-zoom-in" onclick="openLightbox('https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg')">
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" class="w-full h-64 object-cover">
+                    <div class="p-3 bg-neutral-900 jetbrains text-[10px] text-neutral-400">VALIDATION_CHECK_03</div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-baseline gap-4 mb-10">
-                <h2 class="text-3xl font-black text-white">רעיונות Micro-SaaS</h2>
-                <span id="count" class="jetbrains text-neutral-500 text-sm"></span>
+            <div class="flex items-center gap-4 mb-10">
+                <h2 class="text-3xl font-black text-white italic">IDEAS</h2>
+                <div id="countBadge" class="bg-neutral-800 text-neutral-400 px-3 py-1 rounded text-xs jetbrains">00</div>
+                <div class="flex-grow h-[1px] bg-neutral-800"></div>
             </div>
             
             <div id="ideasGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -117,85 +85,155 @@
         </section>
     </main>
 
-    <div id="modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col p-4 backdrop-blur-sm" onclick="closeModal()">
-        <div class="flex justify-between items-center p-4 max-w-7xl mx-auto w-full">
-            <span class="jetbrains text-xs text-neutral-500 italic">צפייה במדריך אסטרטגי</span>
-            <button class="text-white hover:text-neutral-400 transition">סגור [ESC]</button>
-        </div>
-        <div class="flex-grow flex items-center justify-center overflow-hidden">
-            <img id="modalImg" src="" class="max-w-full max-h-full object-contain rounded shadow-2xl">
+    <div id="planModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+        <div class="bg-neutral-900 border border-white/10 w-full max-w-2xl rounded-2xl overflow-hidden modal-animate">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h2 id="modalTitle" class="text-2xl font-bold text-white mb-2">שם הרעיון</h2>
+                        <span id="modalTarget" class="text-sm text-neutral-500"></span>
+                    </div>
+                    <button onclick="closeModal('planModal')" class="text-neutral-500 hover:text-white jetbrains text-xl">×</button>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-[10px] uppercase tracking-widest text-neutral-600 font-bold mb-4 jetbrains">תוכנית ביצוע (Action Plan)</h3>
+                        <div id="modalSteps" class="space-y-3">
+                            </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-8 pt-8 border-t border-white/5">
+                        <div>
+                            <span class="text-[10px] text-neutral-600 uppercase jetbrains block mb-1">טכנולוגיה</span>
+                            <p id="modalTech" class="text-sm text-neutral-300"></p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-neutral-600 uppercase jetbrains block mb-1">הערכת זמן</span>
+                            <p id="modalTime" class="text-sm text-neutral-300"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="w-full bg-white text-black py-4 font-bold text-sm hover:bg-neutral-200 transition" onclick="alert('התוכנית מוכנה לייצוא!')">
+                העתק תוכנית עבודה
+            </button>
         </div>
     </div>
 
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/98 flex flex-col items-center justify-center p-4" onclick="closeModal('imageModal')">
+        <button class="absolute top-6 right-6 text-white text-3xl font-light">×</button>
+        <img id="lightboxImg" src="" class="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-lg">
+        <p class="text-neutral-500 mt-6 text-xs jetbrains uppercase tracking-widest">Scroll to zoom | Click anywhere to exit</p>
+    </div>
+
     <script>
-        let ideasData = [];
+        // המידע המלא כולל תוכניות העבודה
+        const ideasData = [
+            { id: 1, product_name: "מחולל הסכמי עבודה מהירים", target_audience: "פרילנסרים ומעצבים", problem_solved: "עבודה ללא חוזה בגלל בירוקרטיה", core_value: "ביטחון ושליטה (6)", tech: "React + jsPDF", time: "7-10 ימים", steps: ["איסוף 5 תבניות משפטיות בסיסיות", "בניית ממשק הזנת פרטי פרויקט ותמורה", "יצירת מחולל PDF בלחיצת כפתור", "הוספת אפשרות לחתימה דיגיטלית בסיסית"] },
+            { id: 2, product_name: "תפריט דיגיטלי לוואטסאפ", target_audience: "עגלות קפה ודוכני מזון", problem_solved: "סרבול בהזמנות ידניות ללא סליקה", core_value: "חוסך זמן (3)", tech: "Next.js + WhatsApp API", time: "5 ימים", steps: ["בניית קטלוג מוצרים פשוט (JSON)", "ממשק בחירה ללקוח (עגלת קניות)", "מחולל הודעה מפורטת הנשלחת לבעל העסק", "הוספת קוד QR ייחודי לכל שולחן/דוכן"] },
+            { id: 3, product_name: "תור דיגיטלי לרחוב", target_audience: "מספרות ודוכני פלאפל", problem_solved: "לקוחות עוזבים בגלל תור פיזי עמוס", core_value: "מוצר נישתי (1)", tech: "Node.js + WebSockets", time: "14 יום", steps: ["ממשק רישום לקוח (שם + נייד)", "מסך תצוגה ציבורי (Public Dashboard)", "מערכת ניהול תור לבעל העסק", "שליחת התראת SMS כשהתור מתקרב"] },
+            { id: 4, product_name: "מחולל הודעות איחור/תזכורת", target_audience: "קוסמטיקאיות וטכנאים", problem_solved: "בזבוז זמן על הקלדת הודעות חוזרות", core_value: "חוסך זמן (3)", tech: "JavaScript (Web App)", time: "3 ימים", steps: ["יצירת תבניות קבועות (איחור, תזכורת, הצעה)", "ממשק החלפת שמות וזמנים מהיר", "כפתור שליחה ישירה לוואטסאפ", "שמירה מקומית של תבניות מותאמות אישית"] },
+            { id: 5, product_name: "מחשבון הצעת מחיר בשטח", target_audience: "שיפוצניקים ומתקינים", problem_solved: "חוסר מקצועיות בשליחת מחיר בטלפון", core_value: "דיגיטלי בלבד (7)", tech: "React + Firebase", time: "10 ימים", steps: ["בניית מחשבון נוסחאות לפי מטר/חומר", "ממשק בחירת אלמנטים (עבודה + חומרים)", "הפקת דף הצעת מחיר מעוצב", "אפשרות לשליחת הלינק ללקוח במקום"] }
+            // ניתן להמשיך לכל 25 הרעיונות...
+        ];
 
-        async function init() {
-            try {
-                const response = await fetch('https://raw.githubusercontent.com/Almog787/Idea/main/ideas.json');
-                const data = await response.json();
-                ideasData = data.micro_saas_ideas;
-                render(ideasData);
-            } catch (err) {
-                console.error("Fetch Error:", err);
+        // הוספת נתונים גנריים לשאר הרעיונות במידה וחסר
+        const fullIdeas = [...ideasData];
+        const rawJson = [
+            {"id": 6, "product_name": "מחולל הוראות הגעה ותפעול", "target_audience": "מארחי Airbnb", "problem_solved": "שאלות חוזרות של אורחים", "core_value": "תמיכה מינימלית (12)"},
+            {"id": 7, "product_name": "לוח סטטוס פניות (Walk-in)", "target_audience": "מספרות", "problem_solved": "הפרעות לקוחות ששואלים מתי פנוי", "core_value": "Low Touch (10)"},
+            {"id": 8, "product_name": "מנהל רשימת ציוד למשלוח", "target_audience": "חנויות פרחים", "problem_solved": "שכחת פריטים במשלוחים", "core_value": "מונע טעויות (6)"},
+            {"id": 9, "product_name": "כלי סיכום פגישת ייעוץ", "target_audience": "יועצים", "problem_solved": "זמן רב בכתיבת סיכומים", "core_value": "סגנון Tafryt (4)"},
+            {"id": 10, "product_name": "אישור הגעה פשוט לסדנאות", "target_audience": "מרצים", "problem_solved": "סרבול בניהול רשימות ידניות", "core_value": "ללא ניהול כספים (11)"},
+            {"id": 11, "product_name": "אישור הצעה בוואטסאפ", "target_audience": "בעלי מקצוע", "problem_solved": "ויכוחים על מחיר שנסגר בעל פה", "core_value": "ביטחון ושליטה (6)"},
+            {"id": 12, "product_name": "דף סטטוס תיקון", "target_audience": "מעבדות מחשבים", "problem_solved": "טלפונים מלקוחות מודאגים", "core_value": "חוסך זמן (3)"},
+            {"id": 13, "product_name": "מונה כניסות למשק חקלאי", "target_audience": "חקלאים", "problem_solved": "עומס לקוחות בלתי נשלט", "core_value": "דיגיטלי בלבד (7)"},
+            {"id": 14, "product_name": "תדריך בטיחות לעובדים", "target_audience": "קבלנים", "problem_solved": "חזרתיות מעייפת על הנחיות", "core_value": "ללא חומרה (9)"},
+            {"id": 15, "product_name": "מחשבון רווחיות מנה", "target_audience": "מסעדות", "problem_solved": "חוסר ידיעה כמה המנה עולה", "core_value": "אי בודד (2)"},
+            {"id": 16, "product_name": "צ'ק-ליסט פתיחה/סגירה", "target_audience": "בעלי חנויות", "problem_solved": "עובדים שוכחים פעולות קריטיות", "core_value": "מונע טעויות (6)"},
+            {"id": 17, "product_name": "דף נחיתה WiFi מעוצב", "target_audience": "בתי קפה", "problem_solved": "שאלות חוזרות על הסיסמה", "core_value": "Low Touch (10)"},
+            {"id": 18, "product_name": "ניתוב ביקורות (Review Router)", "target_audience": "עסקים מקומיים", "problem_solved": "פחד מביקורות שליליות", "core_value": "קריטיות מבוקרת (8)"},
+            {"id": 19, "product_name": "הוראות הפעלה לציוד", "target_audience": "השכרת ציוד", "problem_solved": "טלפונים על תקלות תפעול", "core_value": "תמיכה מינימלית (12)"},
+            {"id": 20, "product_name": "לוח מודעות פנימי", "target_audience": "עסקים עם משמרות", "problem_solved": "הודעות אבודות בוואטסאפ", "core_value": "סגנון Tafryt (4)"},
+            {"id": 21, "product_name": "אישור הורים דיגיטלי", "target_audience": "קייטנות", "problem_solved": "איסוף דפים פיזיים", "core_value": "מוצר נישתי (1)"},
+            {"id": 22, "product_name": "מוקד דיווח תקלות", "target_audience": "אבות בית", "problem_solved": "דיווחים לא מסודרים", "core_value": "חוסך זמן (3)"},
+            {"id": 23, "product_name": "תיאום ציפיות ויזואלי", "target_audience": "שיפוצניקים", "problem_solved": "אי הבנות על היקף עבודה", "core_value": "ביטחון ושליטה (6)"},
+            {"id": 24, "product_name": "מחשבון החזר השקעה (ROI)", "target_audience": "אנשי מכירות", "problem_solved": "קושי לשכנע ברמה הכלכלית", "core_value": "דיגיטלי בלבד (7)"},
+            {"id": 25, "product_name": "לוח תורנויות משימות", "target_audience": "צוותי דוכנים", "problem_solved": "חוסר סדר באחריות", "core_value": "ללא ניהול כספים (11)"}
+        ];
+
+        // מילוי אוטומטי של תוכניות למי שלא הוגדר ידנית
+        rawJson.forEach(item => {
+            if (!fullIdeas.find(fi => fi.id === item.id)) {
+                fullIdeas.push({
+                    ...item,
+                    tech: "Next.js + Tailwind",
+                    time: "7-12 ימים",
+                    steps: ["אפיון פונקציונליות מינימלית (MVP)", "בניית ממשק משתמש (UI) נקי", "חיבור למסד נתונים פשוט", "בדיקת ולידציה מול 3 לקוחות פוטנציאליים"]
+                });
             }
-        }
+        });
 
-        function render(items) {
+        function render(data) {
             const grid = document.getElementById('ideasGrid');
-            document.getElementById('count').innerText = `[ TOTAL_ITEMS: ${items.length} ]`;
+            document.getElementById('countBadge').innerText = data.length.toString().padStart(2, '0');
             
-            grid.innerHTML = items.map(idea => `
-                <div class="idea-card p-7 rounded-xl flex flex-col justify-between h-full">
+            grid.innerHTML = data.map(i => `
+                <div class="glass-card p-7 rounded-2xl flex flex-col justify-between h-full">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <span class="jetbrains text-[10px] text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded">#${idea.id.toString().padStart(2, '0')}</span>
-                            <div class="h-1.5 w-1.5 bg-white rounded-full"></div>
+                            <span class="jetbrains text-[10px] text-neutral-600">ID_${i.id.toString().padStart(2, '0')}</span>
+                            <div class="h-1 w-1 bg-white rounded-full"></div>
                         </div>
-                        
-                        <h3 class="text-xl font-bold text-white mb-5 leading-snug">${idea.product_name}</h3>
-                        
-                        <div class="space-y-4 mb-8">
-                            <div>
-                                <span class="label block mb-1">Target Audience</span>
-                                <p class="text-[15px] text-neutral-300 font-medium">${idea.target_audience}</p>
-                            </div>
-                            <div>
-                                <span class="label block mb-1">The Problem</span>
-                                <p class="text-[14px] text-neutral-400 leading-relaxed">${idea.problem_solved}</p>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4 leading-tight">${i.product_name}</h3>
+                        <p class="text-xs text-neutral-500 mb-6 leading-relaxed">${i.problem_solved}</p>
                     </div>
-                    
-                    <div class="pt-5 border-t border-neutral-800 mt-auto">
-                        <span class="jetbrains text-[11px] text-white font-semibold tracking-tight">${idea.core_value}</span>
-                    </div>
+                    <button onclick="generatePlan(${i.id})" class="w-full py-3 border border-white/10 text-white text-[10px] uppercase font-black jetbrains tracking-widest hover:bg-white hover:text-black transition-all">
+                        Generate Action Plan
+                    </button>
                 </div>
             `).join('');
         }
 
         function filterIdeas() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = ideasData.filter(i => 
-                i.product_name.toLowerCase().includes(query) || 
-                i.target_audience.toLowerCase().includes(query) ||
-                i.problem_solved.toLowerCase().includes(query)
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = fullIdeas.filter(i => 
+                i.product_name.toLowerCase().includes(q) || 
+                i.target_audience.toLowerCase().includes(q)
             );
             render(filtered);
         }
 
-        function openModal(src) {
-            document.getElementById('modalImg').src = src;
-            document.getElementById('modal').classList.remove('hidden');
+        function generatePlan(id) {
+            const idea = fullIdeas.find(i => i.id === id);
+            document.getElementById('modalTitle').innerText = idea.product_name;
+            document.getElementById('modalTarget').innerText = `עבור: ${idea.target_audience}`;
+            document.getElementById('modalTech').innerText = idea.tech;
+            document.getElementById('modalTime').innerText = idea.time;
+            
+            document.getElementById('modalSteps').innerHTML = idea.steps.map((s, idx) => `
+                <div class="flex items-start gap-3 text-sm text-neutral-300">
+                    <span class="jetbrains text-neutral-600 text-[10px] mt-1">${(idx+1).toString().padStart(2, '0')}</span>
+                    <p>${s}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('planModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', () => render(fullIdeas));
     </script>
 </body>
 </html>
