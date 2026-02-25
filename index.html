@@ -1,139 +1,110 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro-SaaS Strategy Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Assistant', sans-serif; background-color: #f8fafc; }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .card-hover:hover { transform: translateY(-4px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    </style>
-</head>
-<body class="min-h-screen text-slate-900">
+import json
+import os
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <header class="mb-12">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b pb-8">
-                <div>
-                    <h1 class="text-5xl font-extrabold tracking-tight text-slate-900">Micro-SaaS <span class="text-blue-600 italic">Ideas</span></h1>
-                    <p class="text-xl text-slate-500 mt-2 font-light text-right">מתודולוגיית פיתוח למוצרי נישה ממוקדים</p>
-                </div>
-                <div id="statsCounter" class="bg-blue-600 text-white px-6 py-3 rounded-2xl shadow-lg font-bold">
-                    מחשב נתונים...
-                </div>
+def generate_html():
+    # File paths
+    json_path = 'Ideas.json'
+    output_path = 'index.html'
+    
+    # Fail-safe: Check if JSON exists
+    if not os.path.exists(json_path):
+        print(f"Error: {json_path} not found. Creating a placeholder.")
+        data = {"ideas": []}
+    else:
+        try:
+            with open(json_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"Error parsing JSON: {e}")
+            data = {"ideas": []}
+
+    # Images listed in your request
+    images = [
+        "IMG-20260224-WA0041.jpg",
+        "IMG-20260224-WA0042.jpg",
+        "IMG-20260224-WA0043.jpg"
+    ]
+
+    # HTML Template with Tailwind CSS
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="he" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>צוות פיתוח - מאגר רעיונות</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+        <style>
+            body {{ font-family: 'Assistant', sans-serif; }}
+        </style>
+    </head>
+    <body class="bg-gray-50 text-gray-900">
+        <nav class="bg-blue-600 p-4 text-white shadow-lg">
+            <div class="container mx-auto">
+                <h1 class="text-2xl font-bold text-center">מרכז הרעיונות והדרישות של הצוות</h1>
             </div>
-        </header>
+        </nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <aside class="lg:col-span-3">
-                <div class="glass p-6 rounded-3xl shadow-sm border border-slate-200 sticky top-8">
-                    <h3 class="font-bold text-slate-800 mb-6 flex items-center gap-2 text-lg">
-                        📋 הגדרות המודל
-                    </h3>
-                    <div id="definitions" class="space-y-4"></div>
-                </div>
-            </aside>
+        <main class="container mx-auto py-8 px-4">
+            <section class="mb-12">
+                <h2 class="text-xl font-bold mb-6 border-b-2 border-blue-500 pb-2">רעיונות רשומים (מתוך JSON)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    """
 
-            <main class="lg:col-span-9">
-                <div class="mb-8 relative">
-                    <input type="text" id="searchInput" placeholder="חפש רעיון, קהל יעד או ערך..." 
-                           class="w-full bg-white px-6 py-4 rounded-2xl border-2 border-slate-200 focus:border-blue-500 outline-none shadow-sm text-lg transition-all pr-12 text-right">
-                </div>
-                <div id="ideasGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-            </main>
-        </div>
-    </div>
-
-    <script>
-        // Data embedded directly to ensure it works even if JSON fetch fails
-        const database = {
-            "definitions": [
-                { "id": 1, "title": "מוצר קטן ונישתי", "desc": "פתרון ממוקד לבעיה ספציפית מאוד." },
-                { "id": 2, "title": "אי בודד", "desc": "מערכת עצמאית ללא תלות." },
-                { "id": 3, "title": "חוסך זמן", "desc": "ערך ליבה של ייעול עבודה ידנית." },
-                { "id": 4, "title": "סגנון Tafryt", "desc": "ממשק פשוט ונקי." },
-                { "id": 6, "title": "ביטחון ושליטה", "desc": "הגנה משפטית או ניהולית." },
-                { "id": 7, "title": "דיגיטלי בלבד", "desc": "ללא צורך בחומרה." },
-                { "id": 10, "title": "Low Touch", "desc": "מינימום תמיכה טכנית." },
-                { "id": 12, "title": "תמיכה מינימלית", "desc": "מוצר שגר ושכח." }
-            ],
-            "ideas": [
-                { "id": 1, "product_name": "מחולל הסכמי עבודה מהירים", "target_audience": "פרילנסרים ומעצבים", "problem_solved": "עבודה ללא חוזה בגלל בירוקרטיה", "core_value": "ביטחון ושליטה (6)" },
-                { "id": 2, "product_name": "תפריט דיגיטלי לוואטסאפ", "target_audience": "עגלות קפה ודוכני מזון", "problem_solved": "סרבול בהזמנות ידניות", "core_value": "חוסך זמן (3)" },
-                { "id": 3, "product_name": "תור דיגיטלי לרחוב", "target_audience": "מספרות ודוכני פלאפל", "problem_solved": "לקוחות עוזבים בגלל תור פיזי", "core_value": "מוצר קטן ונישתי (1)" },
-                { "id": 4, "product_name": "מחולל הודעות איחור", "target_audience": "קוסמטיקאיות וטכנאים", "problem_solved": "בזבוז זמן על הקלדת הודעות", "core_value": "חוסך זמן (3)" },
-                { "id": 5, "product_name": "מחשבון הצעת מחיר בשטח", "target_audience": "שיפוצניקים ומתקינים", "problem_solved": "חוסר מקצועיות בשליחת מחיר", "core_value": "דיגיטלי בלבד (7)" },
-                { "id": 6, "product_name": "מחולל הוראות הגעה", "target_audience": "מארחי Airbnb", "problem_solved": "שאלות חוזרות של אורחים", "core_value": "תמיכה מינימלית (12)" },
-                { "id": 7, "product_name": "לוח סטטוס פניות", "target_audience": "מספרות ומכוני יופי", "problem_solved": "הפרעות של לקוחות שואלים", "core_value": "Low Touch (10)" },
-                { "id": 8, "product_name": "מנהל רשימת ציוד", "target_audience": "מחסנים וחנויות פרחים", "problem_solved": "שכחת פריטים במשלוחים", "core_value": "מונע טעויות (6)" },
-                { "id": 9, "product_name": "כלי סיכום פגישה", "target_audience": "מאמנים ויועצים", "problem_solved": "זמן רב לכתיבת סיכומים", "core_value": "סגנון Tafryt (4)" },
-                { "id": 10, "product_name": "אישור הגעה לסדנאות", "target_audience": "מרצים ומעבירי חוגים", "problem_solved": "סרבול בניהול רשימות", "core_value": "ללא ניהול כספים (11)" },
-                { "id": 11, "product_name": "אישור הצעה בוואטסאפ", "target_audience": "בעלי מקצוע קטנים", "problem_solved": "ויכוחים על מחיר שנסגר בעל פה", "core_value": "ביטחון ושליטה (6)" },
-                { "id": 12, "product_name": "דף סטטוס תיקון", "target_audience": "מעבדות מחשבים", "problem_solved": "טלפונים בלתי פוסקים מלקוחות", "core_value": "חוסך זמן (3)" },
-                { "id": 13, "product_name": "מונה כניסות למשק", "target_audience": "חקלאים וקטיף עצמי", "problem_solved": "עומס לקוחות בלתי נשלט", "core_value": "דיגיטלי בלבד (7)" },
-                { "id": 14, "product_name": "תדריך בטיחות", "target_audience": "קבלנים ומנהלי אירועים", "problem_solved": "חזרתיות על הנחיות בטיחות", "core_value": "ללא חומרה (9)" },
-                { "id": 15, "product_name": "מחשבון רווחיות מנה", "target_audience": "מסעדות קטנות", "problem_solved": "חוסר ידיעה כמה המנה עולה", "core_value": "אי בודד (2)" },
-                { "id": 16, "product_name": "צ'ק-ליסט פתיחה/סגירה", "target_audience": "בעלי חנויות", "problem_solved": "עובדים שוכחים לנעול", "core_value": "מונע טעויות (6)" },
-                { "id": 17, "product_name": "דף נחיתה WiFi", "target_audience": "בתי קפה", "problem_solved": "שאלות חוזרות על סיסמה", "core_value": "Low Touch (10)" },
-                { "id": 18, "product_name": "ניתוב ביקורות", "target_audience": "עסקים מקומיים", "problem_solved": "פחד מביקורות שליליות", "core_value": "קריטיות מבוקרת (8)" },
-                { "id": 19, "product_name": "הוראות הפעלה לציוד", "target_audience": "חברות השכרה", "problem_solved": "טלפונים על תקלות פשוטות", "core_value": "תמיכה מינימלית (12)" },
-                { "id": 20, "product_name": "לוח מודעות פנימי", "target_audience": "צוותי משמרות", "problem_solved": "הודעות שהולכות לאיבוד", "core_value": "סגנון Tafryt (4)" },
-                { "id": 21, "product_name": "אישור הורים דיגיטלי", "target_audience": "חוגים וקייטנות", "problem_solved": "איסוף דפים פיזיים", "core_value": "מוצר נישתי (1)" },
-                { "id": 22, "product_name": "מוקד דיווח תקלות", "target_audience": "מנהלי נכסים", "problem_solved": "דיווחים לא מסודרים", "core_value": "חוסך זמן (3)" },
-                { "id": 23, "product_name": "תיאום ציפיות ויזואלי", "target_audience": "שיפוצניקים", "problem_solved": "אי הבנות על היקף עבודה", "core_value": "ביטחון ושליטה (6)" },
-                { "id": 24, "product_name": "מחשבון ROI", "target_audience": "אנשי מכירות", "problem_solved": "קושי לשכנע לקוח כלכלית", "core_value": "דיגיטלי בלבד (7)" },
-                { "id": 25, "product_name": "לוח תורנויות יומי", "target_audience": "צוותי דוכנים", "problem_solved": "חוסר סדר באחריות", "core_value": "ללא ניהול כספים (11)" }
-            ]
-        };
-
-        function renderDefinitions() {
-            const el = document.getElementById('definitions');
-            el.innerHTML = database.definitions.map(d => `
-                <div class="border-b border-slate-100 pb-3">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-0.5 rounded">${d.id}</span>
-                        <h4 class="font-bold text-slate-700 text-sm">${d.title}</h4>
+    # Add ideas from JSON
+    if not data.get("ideas"):
+        html_content += '<p class="text-gray-500 italic">אין רעיונות להצגה כרגע.</p>'
+    else:
+        for idea in data["ideas"]:
+            html_content += f"""
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border-t-4 border-blue-400">
+                        <h3 class="font-bold text-lg mb-2">{idea.get('title', 'ללא כותרת')}</h3>
+                        <p class="text-gray-600 mb-4">{idea.get('description', 'אין תיאור זמין')}</p>
+                        <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">{idea.get('category', 'כללי')}</span>
                     </div>
-                    <p class="text-slate-500 text-xs mt-1 mr-6">${d.desc}</p>
-                </div>
-            `).join('');
-        }
+            """
 
-        function renderCards(list) {
-            const grid = document.getElementById('ideasGrid');
-            document.getElementById('statsCounter').innerText = `${list.length} רעיונות`;
-            
-            grid.innerHTML = list.map(item => `
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm card-hover flex flex-col h-full">
-                    <h2 class="text-2xl font-extrabold text-slate-800 mb-2 leading-tight">${item.product_name}</h2>
-                    <p class="text-blue-600 font-semibold text-sm mb-4">🎯 קהל יעד: ${item.target_audience}</p>
-                    <div class="mt-auto space-y-3">
-                        <div class="bg-slate-50 p-4 rounded-2xl text-sm text-slate-700">
-                            <strong>הבעיה:</strong> ${item.problem_solved}
-                        </div>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            ערך: <span class="text-slate-900">${item.core_value}</span>
-                        </div>
+    html_content += """
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold mb-6 border-b-2 border-green-500 pb-2">דרישות ופרוטוקולים (תמונות מהמאגר)</h2>
+                <div class="space-y-8">
+    """
+
+    # Add images
+    for img in images:
+        if os.path.exists(img):
+            html_content += f"""
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <p class="mb-2 text-sm font-semibold text-gray-700">{img}</p>
+                        <img src="{img}" alt="Requirement Image" class="w-full rounded shadow-sm border">
                     </div>
+            """
+        else:
+            html_content += f'<p class="text-red-400 italic">תמונה חסרה במאגר: {img}</p>'
+
+    html_content += """
                 </div>
-            `).join('');
-        }
+            </section>
+        </main>
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            const filtered = database.ideas.filter(i => 
-                i.product_name.toLowerCase().includes(val) || 
-                i.target_audience.toLowerCase().includes(val)
-            );
-            renderCards(filtered);
-        });
+        <footer class="mt-12 py-6 bg-gray-200 text-center text-gray-600 text-sm">
+            <p>עודכן אוטומטית על ידי GitHub Senior AI Partner</p>
+        </footer>
+    </body>
+    </html>
+    """
 
-        // Start
-        renderDefinitions();
-        renderCards(database.ideas);
-    </script>
-</body>
-</html>
+    # Write output
+    try:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        print(f"Successfully generated {output_path}")
+    except Exception as e:
+        print(f"Error writing HTML: {e}")
+
+if __name__ == "__main__":
+    generate_html()
