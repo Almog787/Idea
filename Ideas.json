@@ -1,0 +1,179 @@
+{
+  "micro_saas_ideas": [
+    {
+      "id": 1,
+      "product_name": "מחולל הסכמי עבודה מהירים",
+      "target_audience": "פרילנסרים ומעצבים",
+      "problem_solved": "עבודה ללא חוזה בגלל בירוקרטיה",
+      "core_value": "ביטחון ושליטה (6)"
+    },
+    {
+      "id": 2,
+      "product_name": "תפריט דיגיטלי לוואטסאפ",
+      "target_audience": "עגלות קפה ודוכני מזון",
+      "problem_solved": "סרבול בהזמנות ידניות ללא סליקה",
+      "core_value": "חוסך זמן (3)"
+    },
+    {
+      "id": 3,
+      "product_name": "תור דיגיטלי לרחוב",
+      "target_audience": "מספרות ודוכני פלאפל",
+      "problem_solved": "לקוחות עוזבים בגלל תור פיזי עמוס",
+      "core_value": "מוצר קטן ונישתי (1)"
+    },
+    {
+      "id": 4,
+      "product_name": "מחולל הודעות איחור/תזכורת",
+      "target_audience": "קוסמטיקאיות וטכנאים",
+      "problem_solved": "בזבוז זמן על הקלדת הודעות חוזרות",
+      "core_value": "חוסך זמן (3)"
+    },
+    {
+      "id": 5,
+      "product_name": "מחשבון הצעת מחיר בשטח",
+      "target_audience": "שיפוצניקים ומתקינים",
+      "problem_solved": "חוסר מקצועיות בשליחת מחיר בטלפון",
+      "core_value": "דיגיטלי בלבד (7)"
+    },
+    {
+      "id": 6,
+      "product_name": "מחולל הוראות הגעה ותפעול",
+      "target_audience": "מארחי Airbnb וסאבלטים",
+      "problem_solved": "שאלות חוזרות של אורחים על הדירה",
+      "core_value": "תמיכה מינימלית (12)"
+    },
+    {
+      "id": 7,
+      "product_name": "לוח סטטוס פניות (Walk-in)",
+      "target_audience": "מספרות ומכוני יופי",
+      "problem_solved": "הפרעות של לקוחות ששואלים מתי פנוי",
+      "core_value": "Low Touch (10)"
+    },
+    {
+      "id": 8,
+      "product_name": "מנהל רשימת ציוד למשלוח",
+      "target_audience": "מחסנים וחנויות פרחים",
+      "problem_solved": "שכחת פריטים במשלוחים ויציאה כפולה",
+      "core_value": "מונע טעויות (6)"
+    },
+    {
+      "id": 9,
+      "product_name": "כלי סיכום פגישת ייעוץ",
+      "target_audience": "מאמנים ויועצים",
+      "problem_solved": "זמן רב המוקדש לכתיבת סיכומים ללקוח",
+      "core_value": "סגנון Tafryt (4)"
+    },
+    {
+      "id": 10,
+      "product_name": "אישור הגעה פשוט לסדנאות",
+      "target_audience": "מרצים ומעבירי חוגים",
+      "problem_solved": "סרבול בניהול רשימות משתתפים ידניות",
+      "core_value": "ללא ניהול כספים (11)"
+    },
+    {
+      "id": 11,
+      "product_name": "אישור הצעה בוואטסאפ",
+      "target_audience": "בעלי מקצוע קטנים",
+      "problem_solved": "ויכוחים על מחיר שנסגר בעל פה",
+      "core_value": "ביטחון ושליטה (6)"
+    },
+    {
+      "id": 12,
+      "product_name": "דף סטטוס תיקון",
+      "target_audience": "מעבדות מחשבים ואופניים",
+      "problem_solved": "טלפונים בלתי פוסקים מלקוחות מודאגים",
+      "core_value": "חוסך זמן (3)"
+    },
+    {
+      "id": 13,
+      "product_name": "מונה כניסות למשק חקלאי",
+      "target_audience": "חקלאים וקטיף עצמי",
+      "problem_solved": "עומס לקוחות בלתי נשלט בשטח",
+      "core_value": "דיגיטלי בלבד (7)"
+    },
+    {
+      "id": 14,
+      "product_name": "תדריך בטיחות לעובדים זמניים",
+      "target_audience": "קבלנים ומנהלי אירועים",
+      "problem_solved": "חזרתיות מעייפת על הנחיות בטיחות",
+      "core_value": "ללא חומרה (9)"
+    },
+    {
+      "id": 15,
+      "product_name": "מחשבון רווחיות מנה (Food Cost)",
+      "target_audience": "מסעדות קטנות ודוכנים",
+      "problem_solved": "חוסר ידיעה כמה המנה באמת עולה",
+      "core_value": "אי בודד (2)"
+    },
+    {
+      "id": 16,
+      "product_name": "צ'ק-ליסט פתיחה/סגירה",
+      "target_audience": "בעלי חנויות ומרפאות",
+      "problem_solved": "עובדים שוכחים לנעול או לכבות מכשירים",
+      "core_value": "מונע טעויות (6)"
+    },
+    {
+      "id": 17,
+      "product_name": "דף נחיתה WiFi מעוצב",
+      "target_audience": "בתי קפה וחללי עבודה",
+      "problem_solved": "שאלות חוזרות על סיסמת האינטרנט",
+      "core_value": "Low Touch (10)"
+    },
+    {
+      "id": 18,
+      "product_name": "ניתוב ביקורות (Review Router)",
+      "target_audience": "עסקים מקומיים",
+      "problem_solved": "פחד מביקורות שליליות בגוגל",
+      "core_value": "קריטיות מבוקרת (8)"
+    },
+    {
+      "id": 19,
+      "product_name": "הוראות הפעלה לציוד מושכר",
+      "target_audience": "חברות השכרת ציוד",
+      "problem_solved": "טלפונים על תקלות תפעול פשוטות",
+      "core_value": "תמיכה מינימלית (12)"
+    },
+    {
+      "id": 20,
+      "product_name": "לוח מודעות פנימי לעובדים",
+      "target_audience": "עסקים עם משמרות",
+      "problem_solved": "הודעות חשובות שהולכות לאיבוד בוואטסאפ",
+      "core_value": "סגנון Tafryt (4)"
+    },
+    {
+      "id": 21,
+      "product_name": "אישור הורים דיגיטלי",
+      "target_audience": "חוגים וקייטנות",
+      "problem_solved": "איסוף דפים פיזיים מלוכלכים ומבולגנים",
+      "core_value": "מוצר נישתי (1)"
+    },
+    {
+      "id": 22,
+      "product_name": "מוקד דיווח תקלות בבניין",
+      "target_audience": "אבות בית ומנהלי נכסים",
+      "problem_solved": "דיווחים לא מסודרים על תקלות תחזוקה",
+      "core_value": "חוסך זמן (3)"
+    },
+    {
+      "id": 23,
+      "product_name": "תיאום ציפיות ויזואלי (Scope)",
+      "target_audience": "שיפוצניקים וצבעים",
+      "problem_solved": "אי הבנות עם לקוחות על היקף העבודה",
+      "core_value": "ביטחון ושליטה (6)"
+    },
+    {
+      "id": 1,
+      "product_name": "מחשבון החזר השקעה (ROI)",
+      "target_audience": "אנשי מכירות בשטח",
+      "problem_solved": "קושי לשכנע לקוח ברמה הכלכלית",
+      "core_value": "דיגיטלי בלבד (7)"
+    },
+    {
+      "id": 25,
+      "product_name": "לוח תורנויות משימות יומי",
+      "target_audience": "צוותים קטנים בדוכנים",
+      "problem_solved": "חוסר סדר באחריות על ניקיון וסידור",
+      "core_value": "ללא ניהול כספים (11)"
+    }
+  ]
+}
