@@ -3,127 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro-SaaS Strategy | Mono Edition</title>
+    <title>SaaS Strategy | High Readability Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --card-border: #e2e8f0;
-        }
         body { 
             font-family: 'Assistant', sans-serif; 
-            background-color: var(--bg);
-            color: var(--text);
-            transition: background 0.3s ease;
+            background-color: #0a0a0a; /* שחור רך */
+            color: #e5e5e5; /* לבן מעט אפרפר למניעת סנוור */
         }
         .jetbrains { font-family: 'JetBrains Mono', monospace; }
         
-        /* Responsive Image Slider */
+        /* Slider optimized for visibility */
         .slider-wrapper {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 1rem;
-            padding: 1rem 0;
-            -webkit-overflow-scrolling: touch;
+            gap: 1.5rem;
+            padding: 1rem;
         }
-        .slider-wrapper::-webkit-scrollbar { display: none; }
-        
+        .slider-wrapper::-webkit-scrollbar {
+            height: 4px;
+        }
+        .slider-wrapper::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 10px;
+        }
+
         .strategy-card {
             flex: 0 0 85%;
             scroll-snap-align: center;
-            border: 1px solid #000;
-            border-radius: 4px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            background: #171717;
+            border: 1px solid #262626;
+            border-radius: 12px;
+            transition: border-color 0.3s;
         }
-        @media (min-width: 768px) {
-            .strategy-card { flex: 0 0 31%; }
-        }
+        @media (min-width: 768px) { .strategy-card { flex: 0 0 30%; } }
 
-        /* Card Hover Effects */
+        /* Idea Card - Focus on Text */
         .idea-card {
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #171717;
+            border: 1px solid #262626;
+            transition: all 0.2s ease-in-out;
         }
         .idea-card:hover {
-            border-color: #000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transform: translateY(-2px);
+            border-color: #f5f5f5;
+            background: #1c1c1c;
         }
 
-        /* Dark Mode elements if user prefers */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #000000;
-                --text: #ffffff;
-                --card-border: #262626;
-            }
-            .idea-card { border-color: #262626; background: #0a0a0a; }
-            .idea-card:hover { border-color: #fff; }
-            input { background: #171717 !important; color: #fff; }
+        .label {
+            color: #737373;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
         }
     </style>
 </head>
-<body class="p-0 m-0">
+<body class="min-h-screen">
 
-    <nav class="border-b border-gray-200 dark:border-neutral-800 sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur-md z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <div class="w-8 h-8 bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-bold rounded">M</div>
-                <h1 class="text-xl font-black tracking-tighter uppercase">Ideation Engine</h1>
+    <nav class="border-b border-neutral-800 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-white text-black flex items-center justify-center font-black rounded-sm">S</div>
+                <h1 class="text-xl font-extrabold tracking-tight">STRATEGY<span class="text-neutral-500 font-light">CORE</span></h1>
             </div>
-            
-            <div class="flex gap-2 w-full md:w-auto">
-                <input type="text" id="searchInput" oninput="filterIdeas()" placeholder="חיפוש מהיר..." 
-                       class="flex-grow md:w-64 border border-gray-300 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-900 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white">
-            </div>
+            <input type="text" id="searchInput" oninput="filterIdeas()" placeholder="חיפוש לפי שם, קהל או בעיה..." 
+                   class="w-full md:w-80 bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-white transition-colors">
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-10">
+    <main class="max-w-7xl mx-auto px-6 py-12">
         
-        <section class="mb-16">
-            <div class="flex justify-between items-end mb-6">
-                <div>
-                    <h2 class="text-3xl font-bold">האסטרטגיה</h2>
-                    <p class="text-gray-500 text-sm">לחץ על תמונה להגדלה מלאה</p>
-                </div>
-                <div class="hidden md:flex gap-2">
-                    <button onclick="document.getElementById('slider').scrollBy({left: -300, behavior:'smooth'})" class="p-2 border border-black dark:border-white rounded-full hover:bg-black hover:text-white transition">←</button>
-                    <button onclick="document.getElementById('slider').scrollBy({left: 300, behavior:'smooth'})" class="p-2 border border-black dark:border-white rounded-full hover:bg-black hover:text-white transition">→</button>
-                </div>
+        <section class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-white mb-2">מדריכי אסטרטגיה</h2>
+                <div class="h-1 w-12 bg-white"></div>
             </div>
             
             <div class="slider-wrapper" id="slider">
                 <div class="strategy-card group cursor-pointer" onclick="openModal(this.querySelector('img').src)">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="p-3 text-xs font-bold uppercase tracking-widest bg-white dark:bg-black border-t border-gray-200 dark:border-neutral-800">Criteria / 01</div>
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0041.jpg" class="w-full h-72 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="p-4 bg-neutral-900 flex justify-between items-center">
+                        <span class="jetbrains text-xs text-neutral-400 font-bold">GUIDE_01</span>
+                        <span class="text-xs text-neutral-500 italic">לחץ להגדלה</span>
+                    </div>
                 </div>
                 <div class="strategy-card group cursor-pointer" onclick="openModal(this.querySelector('img').src)">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="p-3 text-xs font-bold uppercase tracking-widest bg-white dark:bg-black border-t border-gray-200 dark:border-neutral-800">Profit Model / 02</div>
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0042.jpg" class="w-full h-72 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="p-4 bg-neutral-900 flex justify-between items-center">
+                        <span class="jetbrains text-xs text-neutral-400 font-bold">GUIDE_02</span>
+                        <span class="text-xs text-neutral-500 italic">לחץ להגדלה</span>
+                    </div>
                 </div>
                 <div class="strategy-card group cursor-pointer" onclick="openModal(this.querySelector('img').src)">
-                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="p-3 text-xs font-bold uppercase tracking-widest bg-white dark:bg-black border-t border-gray-200 dark:border-neutral-800">Validation / 03</div>
+                    <img src="https://raw.githubusercontent.com/Almog787/Idea/e0688dcba86699abcdc57b0cd5b221e4d0e229ba/IMG-20260224-WA0043.jpg" class="w-full h-72 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="p-4 bg-neutral-900 flex justify-between items-center">
+                        <span class="jetbrains text-xs text-neutral-400 font-bold">GUIDE_03</span>
+                        <span class="text-xs text-neutral-500 italic">לחץ להגדלה</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <h2 class="text-3xl font-bold mb-8">רשימת הרעיונות <span id="count" class="text-gray-400 font-light text-xl"></span></h2>
-        <div id="ideasGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <section>
+            <div class="flex items-baseline gap-4 mb-10">
+                <h2 class="text-3xl font-black text-white">רעיונות Micro-SaaS</h2>
+                <span id="count" class="jetbrains text-neutral-500 text-sm"></span>
             </div>
+            
+            <div id="ideasGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                </div>
+        </section>
     </main>
 
-    <div id="modal" class="fixed inset-0 bg-white dark:bg-black z-[100] hidden flex flex-col p-4" onclick="closeModal()">
-        <div class="flex justify-end p-4">
-            <button class="text-2xl font-light tracking-widest uppercase">סגור [X]</button>
+    <div id="modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col p-4 backdrop-blur-sm" onclick="closeModal()">
+        <div class="flex justify-between items-center p-4 max-w-7xl mx-auto w-full">
+            <span class="jetbrains text-xs text-neutral-500 italic">צפייה במדריך אסטרטגי</span>
+            <button class="text-white hover:text-neutral-400 transition">סגור [ESC]</button>
         </div>
         <div class="flex-grow flex items-center justify-center overflow-hidden">
-            <img id="modalImg" src="" class="max-w-full max-h-full object-contain">
+            <img id="modalImg" src="" class="max-w-full max-h-full object-contain rounded shadow-2xl">
         </div>
     </div>
 
@@ -137,27 +137,38 @@
                 ideasData = data.micro_saas_ideas;
                 render(ideasData);
             } catch (err) {
-                console.error("System Error: Could not sync with source.");
+                console.error("Fetch Error:", err);
             }
         }
 
         function render(items) {
             const grid = document.getElementById('ideasGrid');
-            document.getElementById('count').innerText = `(${items.length})`;
+            document.getElementById('count').innerText = `[ TOTAL_ITEMS: ${items.length} ]`;
             
             grid.innerHTML = items.map(idea => `
-                <div class="idea-card p-6 flex flex-col justify-between rounded-lg">
+                <div class="idea-card p-7 rounded-xl flex flex-col justify-between h-full">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <span class="jetbrains text-[10px] font-bold border border-black dark:border-white px-2 py-0.5 rounded">ID_${idea.id}</span>
-                            <div class="h-1 w-1 bg-black dark:bg-white rounded-full"></div>
+                            <span class="jetbrains text-[10px] text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded">#${idea.id.toString().padStart(2, '0')}</span>
+                            <div class="h-1.5 w-1.5 bg-white rounded-full"></div>
                         </div>
-                        <h3 class="text-xl font-bold mb-4 leading-tight">${idea.product_name}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2"><strong>קהל:</strong> ${idea.target_audience}</p>
-                        <p class="text-sm text-gray-500 italic mb-6 leading-relaxed">${idea.problem_solved}</p>
+                        
+                        <h3 class="text-xl font-bold text-white mb-5 leading-snug">${idea.product_name}</h3>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div>
+                                <span class="label block mb-1">Target Audience</span>
+                                <p class="text-[15px] text-neutral-300 font-medium">${idea.target_audience}</p>
+                            </div>
+                            <div>
+                                <span class="label block mb-1">The Problem</span>
+                                <p class="text-[14px] text-neutral-400 leading-relaxed">${idea.problem_solved}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pt-4 border-t border-gray-100 dark:border-neutral-900">
-                        <span class="text-[11px] font-bold uppercase jetbrains tracking-tighter">${idea.core_value}</span>
+                    
+                    <div class="pt-5 border-t border-neutral-800 mt-auto">
+                        <span class="jetbrains text-[11px] text-white font-semibold tracking-tight">${idea.core_value}</span>
                     </div>
                 </div>
             `).join('');
@@ -167,7 +178,8 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = ideasData.filter(i => 
                 i.product_name.toLowerCase().includes(query) || 
-                i.target_audience.toLowerCase().includes(query)
+                i.target_audience.toLowerCase().includes(query) ||
+                i.problem_solved.toLowerCase().includes(query)
             );
             render(filtered);
         }
