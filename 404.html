@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Idea Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #ffffff; --text-main: #111827; --accent: #000000; }
+        body { font-family: 'Assistant', sans-serif; background-color: var(--bg); color: var(--text-main); overflow: hidden; }
+        .jetbrains { font-family: 'JetBrains Mono', monospace; }
+        
+        .error-code {
+            font-size: clamp(8rem, 20vw, 15rem);
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            background: linear-gradient(180deg, #000 30%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scanline {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: rgba(0,0,0,0.1);
+            animation: scan 4s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+
+    <div class="scanline"></div>
+
+    <div class="max-w-2xl">
+        <div class="jetbrains text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-4 font-bold">
+            Critical System Status: Runtime Error
+        </div>
+        
+        <div class="glitch-wrapper">
+            <h1 class="error-code">404</h1>
+        </div>
+
+        <h2 class="text-3xl font-black text-black mb-6 tracking-tighter italic uppercase">
+            IdeaSync<span class="font-light text-gray-400">Crash</span>
+        </h2>
+
+        <div class="bg-gray-50 border border-gray-100 rounded-2xl p-6 mb-8 text-right space-y-3">
+            <p class="jetbrains text-[12px] text-red-500 font-bold">
+                > FATAL_ERROR: Resource at URL not found in registry.
+            </p>
+            <p class="text-sm text-gray-600 leading-relaxed">
+                נראה שהרעיון שחיפשת עבר <span class="jetbrains font-bold text-black">[FORCE-PUSH]</span> לתיקייה אחרת או שמעולם לא עבר קומפילציה. אל תדאג, ה-Architect כבר מטפל בזה.
+            </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/" class="px-8 py-4 bg-black text-white text-[11px] font-black jetbrains uppercase tracking-widest rounded-2xl hover:bg-neutral-800 hover:scale-[1.05] transition-all">
+                git checkout main
+            </a>
+            <button onclick="window.history.back()" class="px-8 py-4 bg-white border border-gray-200 text-black text-[11px] font-black jetbrains uppercase tracking-widest rounded-2xl hover:bg-gray-50 transition-all">
+                revert last commit
+            </button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-10 left-10 text-left opacity-10 pointer-events-none hidden md:block">
+        <pre class="jetbrains text-[10px]">
+            while(true) {
+                search(ideas);
+                if (notFound) {
+                    surprise_user();
+                    render_404();
+                }
+            }
+        </pre>
+    </div>
+
+    <script>
+        // Proactive AI touch: Log the missing path for debugging
+        console.warn("User attempted to access: " + window.location.pathname);
+        console.log("Status: 404 - Not Found. Suggestion: Start a new SaaS idea instead.");
+    </script>
+
+</body>
+</html>
