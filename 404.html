@@ -3,85 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Sshhh... Aaaaaah!</title>
+    <title>404 | Critical Peter Error</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Assistant', sans-serif; background-color: #ffffff; overflow: hidden; }
+        body { font-family: 'Assistant', sans-serif; background-color: #ffffff; overflow: hidden; height: 100vh; }
         
-        /* Peter Griffin Animation */
-        .peter-container {
-            position: relative;
-            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-            animation-iteration-count: 2;
+        /* The Falling Peter Animation */
+        #peter {
+            position: absolute;
+            width: 150px;
+            cursor: pointer;
+            z-index: 50;
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
         }
 
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
+        /* Complex bounce background */
+        .bounce-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, #f9fafb 0%, #ffffff 100%);
+            z-index: -1;
         }
 
-        .pain-sound {
-            font-weight: 800;
-            font-style: italic;
-            color: #ef4444;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
+        /* Floating debris for complexity */
+        .debris {
+            position: absolute;
+            background: #000;
+            border-radius: 4px;
+            opacity: 0.05;
+            pointer-events: none;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes scream {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1); }
         }
+        .screaming { animation: scream 0.3s ease-in-out; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+<body class="flex flex-col items-center justify-center">
 
-    <div class="peter-container mb-8">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZ3bmR6bmpxZzR6bmpxZzR6bmpxZzR6bmpxZzR6bmpxZzR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZ2VudGlmeSZjdD1n/3o6Zt8qDiLInS1O4ow/giphy.gif" 
-             alt="Peter Griffin Knee" 
-             class="rounded-[2.5rem] shadow-2xl border-4 border-black w-full max-w-md mx-auto">
-    </div>
+    <div class="bounce-bg"></div>
 
-    <div class="max-w-xl">
-        <h1 class="text-6xl font-black text-black mb-4 tracking-tighter">אאוץ'! 404</h1>
-        
-        <div class="bg-gray-50 border border-gray-100 rounded-3xl p-8 mb-8 shadow-inner">
-            <p class="text-2xl font-bold text-gray-800 mb-4">
-                <span class="pain-sound italic">"Ssshhhhh... Aaaaaaaah!"</span>
-            </p>
-            <p class="text-lg text-gray-500 leading-relaxed font-medium">
-                נראה שפיטר נתקע בקישור הלא נכון ושבר את הברך (ואת הדף שחיפשת). 
-                זה עומד לקחת הרבה זמן... בדיוק כמו בסדרה.
+    <img id="peter" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZ3bmR6bmpxZzR6bmpxZzR6bmpxZzR6bmpxZzR6bmpxZzR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZ2VudGlmeSZjdD1n/3o6Zt8qDiLInS1O4ow/giphy.gif" alt="Peter">
+
+    <div class="max-w-2xl text-center z-10 pointer-events-none select-none">
+        <h1 class="text-[12rem] font-black text-black leading-none opacity-5 jetbrains">404</h1>
+        <div class="relative -mt-20">
+            <h2 class="text-4xl font-black text-black mb-4 tracking-tighter">המערכת קרסה (יחד עם הברך של פיטר)</h2>
+            <p class="text-lg text-gray-500 font-medium mb-8 bg-white/80 backdrop-blur-md p-4 rounded-2xl inline-block border border-gray-100">
+                נסה לתפוס את פיטר כדי לחזור הביתה, או פשוט תן לו לסבול.
             </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/" class="px-10 py-5 bg-black text-white text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-neutral-800 hover:scale-105 transition-all shadow-lg">
-                קח אותי מפה (לדף הבית)
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pointer-events-auto">
+            <a href="/" class="px-10 py-5 bg-black text-white text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-neutral-800 hover:scale-110 transition-all shadow-2xl">
+                git checkout home
             </a>
             <button onclick="window.history.back()" class="px-10 py-5 bg-white border-2 border-black text-black text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-gray-50 transition-all">
-                נסה לחזור אחורה
+                revert mistake
             </button>
         </div>
     </div>
 
-    <audio id="kneeSound">
+    <audio id="painSound">
         <source src="https://www.myinstants.com/media/sounds/peter_griffin_knee.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Proactive touch: Play sound on first click anywhere
-        document.body.addEventListener('click', function() {
-            const audio = document.getElementById('kneeSound');
-            audio.play().catch(e => console.log("Audio waiting for interaction"));
-        }, { once: true });
+        const peter = document.getElementById('peter');
+        const audio = document.getElementById('painSound');
+        
+        let posX = Math.random() * window.innerWidth;
+        let posY = Math.random() * window.innerHeight;
+        let velX = 5;
+        let velY = 5;
+        let rotation = 0;
 
-        console.log("Status: 404. Cause: Peter Griffin's knee. Duration: 10 minutes of pain.");
+        function update() {
+            // Update Position
+            posX += velX;
+            posY += velY;
+            rotation += velX;
+
+            // Boundary Collision (Bounce)
+            if (posX + peter.clientWidth > window.innerWidth || posX < 0) {
+                velX *= -1;
+                playPain();
+            }
+            if (posY + peter.clientHeight > window.innerHeight || posY < 0) {
+                velY *= -1;
+                playPain();
+            }
+
+            // Apply Transform
+            peter.style.left = posX + 'px';
+            peter.style.top = posY + 'px';
+            peter.style.transform = `rotate(${rotation}deg)`;
+
+            requestAnimationFrame(update);
+        }
+
+        function playPain() {
+            // Reset and play sound
+            audio.currentTime = 0;
+            audio.play().catch(() => {}); // Handle browser policy
+            
+            // Visual feedback
+            document.body.classList.add('screaming');
+            setTimeout(() => document.body.classList.remove('screaming'), 300);
+        }
+
+        // Proactive touch: Increase speed on click
+        peter.addEventListener('mousedown', () => {
+            velX *= 1.5;
+            velY *= 1.5;
+            peter.style.filter = 'invert(1)';
+            setTimeout(() => peter.style.filter = 'none', 100);
+        });
+
+        // Initialize animation
+        update();
+
+        // Create decorative debris
+        for(let i=0; i<20; i++) {
+            const d = document.createElement('div');
+            d.className = 'debris';
+            d.style.width = Math.random() * 50 + 'px';
+            d.style.height = '2px';
+            d.style.left = Math.random() * 100 + 'vw';
+            d.style.top = Math.random() * 100 + 'vh';
+            d.style.transform = `rotate(${Math.random() * 360}deg)`;
+            document.body.appendChild(d);
+        }
     </script>
-
 </body>
 </html>
