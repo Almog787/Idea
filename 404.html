@@ -3,180 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 | Critical Runtime Error</title>
-    
+    <title>404 - Sshhh... Aaaaaah!</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #ffffff; --text-main: #111827; --accent: #000000; --error: #ef4444; }
-        body { font-family: 'Assistant', sans-serif; background-color: var(--bg); color: var(--text-main); overflow: hidden; }
-        .jetbrains { font-family: 'JetBrains Mono', monospace; }
+        body { font-family: 'Assistant', sans-serif; background-color: #ffffff; overflow: hidden; }
         
-        /* 1. Advanced Glitch Effect */
-        .glitch-wrapper { position: relative; display: inline-block; animation: glitch-skew 1s infinite linear alternate-reverse; }
-        .error-code {
-            font-size: clamp(8rem, 25vw, 18rem);
-            line-height: 1;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            background: linear-gradient(180deg, #000 30%, #fff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Peter Griffin Animation */
+        .peter-container {
             position: relative;
-        }
-        .error-code::before, .error-code::after {
-            content: '404'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .error-code::before {
-            background: linear-gradient(180deg, var(--error) 30%, #fff 100%);
-            -webkit-background-clip: text; animation: glitch-anim 2s infinite linear alternate-reverse;
-            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-        }
-        .error-code::after {
-            background: linear-gradient(180deg, #3b82f6 30%, #fff 100%);
-            -webkit-background-clip: text; animation: glitch-anim-2 3s infinite linear alternate-reverse;
-            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            animation-iteration-count: 2;
         }
 
-        /* Glitch Keyframes */
-        @keyframes glitch-anim {
-            0% { clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%); transform: translate(-0.02em, -0.01em); }
-            20% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); transform: translate(0.02em, 0.01em); }
-            /* ... more steps for complexity ... */
-            100% { clip-path: polygon(0 15%, 100% 15%, 100% 16%, 0 16%); transform: translate(-0.02em, -0.01em); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip-path: polygon(0 67%, 100% 67%, 100% 70%, 0 70%); transform: translate(0.01em, 0.02em); }
-            100% { clip-path: polygon(0 80%, 100% 80%, 100% 81%, 0 81%); transform: translate(-0.01em, -0.02em); }
-        }
-        @keyframes glitch-skew {
-            0% { transform: skew(1deg); } 10% { transform: skew(0deg); }
-            50% { transform: skew(-2deg); } 100% { transform: skew(0deg); }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
         }
 
-        /* 2. Typing Cursor Animation */
-        .typing-text::after { content: '|'; animation: blink 1s infinite; color: var(--accent); font-weight: bold; }
-        @keyframes blink { 50% { opacity: 0; } }
+        .pain-sound {
+            font-weight: 800;
+            font-style: italic;
+            color: #ef4444;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
 
-        /* Background Scanline (Decorative) */
-        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-        .scanline { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: rgba(0,0,0,0.05); animation: scan 6s linear infinite; pointer-events: none; }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-white">
+<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
 
-    <div class="scanline"></div>
+    <div class="peter-container mb-8">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZ3bmR6bmpxZzR6bmpxZzR6bmpxZzR6bmpxZzR6bmpxZzR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZ2VudGlmeSZjdD1n/3o6Zt8qDiLInS1O4ow/giphy.gif" 
+             alt="Peter Griffin Knee" 
+             class="rounded-[2.5rem] shadow-2xl border-4 border-black w-full max-w-md mx-auto">
+    </div>
 
-    <div class="max-w-2xl animate-[fadeIn_1.5s_ease-out]">
-        <div class="jetbrains text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-4 font-bold opacity-70">
-            Critical System Status: Runtime Error
-        </div>
+    <div class="max-w-xl">
+        <h1 class="text-6xl font-black text-black mb-4 tracking-tighter">אאוץ'! 404</h1>
         
-        <div class="glitch-wrapper mb-2">
-            <h1 class="error-code">404</h1>
-        </div>
-
-        <h2 class="text-3xl font-black text-black mb-8 tracking-tighter italic uppercase animate-[slideDown_1s_ease-out_0.5s_both]">
-            IdeaSync<span class="font-light text-gray-400">Crash</span>
-        </h2>
-
-        <div class="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-8 mb-10 text-right space-y-4 shadow-inner">
-            <div class="flex items-center justify-between mb-2">
-                <span class="jetbrains text-[10px] text-gray-300 font-bold uppercase tracking-widest">Error Log v1.0</span>
-                <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
-            </div>
-            
-            <p id="errorLog" class="jetbrains text-[12px] text-red-500 font-bold typing-text">
-                > Initializing traceback...<br>
-                > Analyzing request stack...<br>
-                > FATAL_ERROR: Resource at URL not found.<br>
+        <div class="bg-gray-50 border border-gray-100 rounded-3xl p-8 mb-8 shadow-inner">
+            <p class="text-2xl font-bold text-gray-800 mb-4">
+                <span class="pain-sound italic">"Ssshhhhh... Aaaaaaaah!"</span>
             </p>
-            
-            <p class="text-sm text-gray-600 leading-relaxed pt-2 opacity-80 transition-opacity duration-1000 delay-[3s]" id="finalDesc">
-                נראה שהרעיון שחיפשת עבר <span class="jetbrains font-bold text-black">[FORCE-PUSH]</span> לתיקייה אחרת או שמעולם לא עבר קומפילציה. אל תדאג, ה-Architect כבר מטפל בזה.
+            <p class="text-lg text-gray-500 leading-relaxed font-medium">
+                נראה שפיטר נתקע בקישור הלא נכון ושבר את הברך (ואת הדף שחיפשת). 
+                זה עומד לקחת הרבה זמן... בדיוק כמו בסדרה.
             </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-5 justify-center mt-10">
-            <a href="/" class="px-10 py-5 bg-black text-white text-[11px] font-black jetbrains uppercase tracking-widest rounded-2xl 
-               hover:bg-neutral-800 hover:scale-[1.08] hover:shadow-2xl hover:shadow-black/10 transition-all duration-300 ease-out active:scale-95">
-                git checkout main
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/" class="px-10 py-5 bg-black text-white text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-neutral-800 hover:scale-105 transition-all shadow-lg">
+                קח אותי מפה (לדף הבית)
             </a>
-            <button onclick="window.history.back()" class="px-10 py-5 bg-white border border-gray-200 text-black text-[11px] font-black jetbrains uppercase tracking-widest rounded-2xl 
-               hover:bg-gray-50 hover:scale-[1.08] hover:shadow-xl hover:shadow-gray-100 transition-all duration-300 ease-out active:scale-95">
-                revert last commit
+            <button onclick="window.history.back()" class="px-10 py-5 bg-white border-2 border-black text-black text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-gray-50 transition-all">
+                נסה לחזור אחורה
             </button>
         </div>
     </div>
 
-    <div class="fixed bottom-10 left-10 text-left opacity-10 pointer-events-none hidden md:block animate-[pulse_5s_infinite]">
-        <pre class="jetbrains text-[10px] text-gray-300">
-while(true) {
-    search(ideas);
-    if (notFound) {
-        surprise_user(); // <--- We are here
-        render_404();
-    }
-}
-        </pre>
-    </div>
+    <audio id="kneeSound">
+        <source src="https://www.myinstants.com/media/sounds/peter_griffin_knee.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    animation: {
-                        'fadeIn': 'fadeIn 1.5s ease-out',
-                        'slideDown': 'slideDown 1s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
-                        slideDown: { '0%': { transform: 'translateY(-20px)', opacity: 0 }, '100%': { transform: 'translateY(0)', opacity: 1 } },
-                    }
-                }
-            }
-        }
-    </script>
+        // Proactive touch: Play sound on first click anywhere
+        document.body.addEventListener('click', function() {
+            const audio = document.getElementById('kneeSound');
+            audio.play().catch(e => console.log("Audio waiting for interaction"));
+        }, { once: true });
 
-    <script>
-        const logElement = document.getElementById('errorLog');
-        const descElement = document.getElementById('finalDesc');
-        const lines = [
-            "> FATAL_ERROR: Resource at URL not found in registry.",
-            "> REQUEST_ID: " + Math.random().toString(36).substring(7).toUpperCase(),
-            "> Status: Detached HEAD State. System unstable.",
-            "> Traceback finished. User intervention required."
-        ];
-        let lineIndex = 0;
-        let charIndex = 0;
-
-        // Proactive touch: Hide the description initially
-        descElement.style.opacity = '0';
-
-        function typeLine() {
-            if (lineIndex < lines.length) {
-                if (charIndex < lines[lineIndex].length) {
-                    logElement.innerHTML += lines[lineIndex].charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeLine, 30); // Speed of typing
-                } else {
-                    logElement.innerHTML += "<br>";
-                    charIndex = 0;
-                    lineIndex++;
-                    setTimeout(typeLine, 500); // Pause between lines
-                }
-            } else {
-                // Done typing, show the description smoothly
-                logElement.classList.remove('typing-text');
-                descElement.style.opacity = '1';
-                console.warn("404 Error: Reality not found. User surprised successfully.");
-            }
-        }
-
-        // Start typing on DOM ready
-        document.addEventListener('DOMContentLoaded', typeLine);
+        console.log("Status: 404. Cause: Peter Griffin's knee. Duration: 10 minutes of pain.");
     </script>
 
 </body>
